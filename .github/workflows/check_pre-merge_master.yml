@@ -14,5 +14,5 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: test2
-      run: echo "call test2"
+    - name: test4
+      run: echo "call test4"
