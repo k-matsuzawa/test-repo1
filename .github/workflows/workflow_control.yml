@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: wait 30 sec
-      run: sleep 30
+    - name: wait 20 sec
+      run: sleep 20
     - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
       name: cancel workflows
       uses: yellowmegaman/gh-build-canceller@v1.6
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.CANCEL_WORKFLOW_TOKEN }}
     - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
       run: exit 1
     - if: success()
