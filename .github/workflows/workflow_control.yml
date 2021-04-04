@@ -16,9 +16,9 @@ jobs:
       run: sleep 30
     - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
       name: cancel workflows
-      uses: rokroskar/workflow-run-cleanup-action@master
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      uses: yellowmegaman/gh-build-canceller@v1.6
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
     - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
       run: exit 1
     - if: success()
