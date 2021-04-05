@@ -16,7 +16,7 @@ jobs:
     - name: check secret
       id: check_secret
       run: |
-          if [[ -n '${{secrets.CANCEL_WORKFLOW_TOKEN2}}' ]]; then
+          if [[ -n '${{secrets.CANCEL_WORKFLOW_TOKEN}}' ]]; then
             echo "::set-output name=exist_secret::true"
           else
             echo "::set-output name=exist_secret::false"
@@ -29,10 +29,11 @@ jobs:
       id: cancel_workflow
       uses: actions/github-script@v3
       with:
-        github-token: ${{ secrets.CANCEL_WORKFLOW_TOKEN2 }}
+        github-token: ${{ secrets.CANCEL_WORKFLOW_TOKEN }}
         script: |
             // Get a list of all issues created by the PR opener
             // See: https://octokit.github.io/rest.js/#pagination
+            console.log(context)
             const creator = context.payload.sender.login
             const opts1 = github.actions.listWorkflowRunsForRepo.endpoint.merge({
               owner: context.repo.owner,
@@ -61,7 +62,5 @@ jobs:
                 `path:${workflow.head_repository.full_name}/tree/${workflow.head_branch}`);
             }
             throw new Error('Change workflow file. please set label "update CI".')
-#    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
-#      run: exit 1
     - if: success()
       run: echo "enabled editing workflow."
