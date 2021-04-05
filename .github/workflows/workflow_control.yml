@@ -20,7 +20,7 @@ jobs:
             echo "::set-output name=exist_secret::true"
           else
             echo "::set-output name=exist_secret::false"
-          endif
+          fi
     - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && steps.check_secret.outputs.exist_secret == 'true'
       name: wait 20 sec
       run: sleep 20
