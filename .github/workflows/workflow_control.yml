@@ -15,11 +15,16 @@ jobs:
     steps:
     - name: check secret
       id: check_secret
-      run: echo '::set-output name=secret::${{secrets.CANCEL_WORKFLOW_TOKEN2}}
-    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && steps.check_secret.outputs.secret
+      run: |
+          if [[ -n ${{secrets.CANCEL_WORKFLOW_TOKEN2}} ]]; then
+            echo "::set-output name=exist_secret::true"
+          else
+            echo "::set-output name=exist_secret::false"
+          endif
+    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && steps.check_secret.outputs.exist_secret == 'true'
       name: wait 20 sec
       run: sleep 20
-    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && steps.check_secret.outputs.secret
+    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && steps.check_secret.outputs.exist_secret == 'true'
       name: cancel workflows
       id: cancel_workflow
       uses: actions/github-script@v3
