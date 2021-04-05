@@ -1,4 +1,4 @@
-name: workflow control
+name: workflow modify checker
 # This workflow is c
 
 on: 
@@ -33,7 +33,6 @@ jobs:
         script: |
             // Get a list of all issues created by the PR opener
             // See: https://octokit.github.io/rest.js/#pagination
-            console.log(context)
             const creator = context.payload.sender.login
             const opts1 = github.actions.listWorkflowRunsForRepo.endpoint.merge({
               owner: context.repo.owner,
