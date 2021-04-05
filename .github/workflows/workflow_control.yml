@@ -19,6 +19,7 @@ jobs:
       uses: actions/github-script@v3
       with:
         github-token: ${{ secrets.CANCEL_WORKFLOW_TOKEN }}
+        debug: true
         script: |
             const branch = context.ref.replace('refs/heads/', '')
             // Get a list of all issues created by the PR opener
@@ -31,6 +32,7 @@ jobs:
               event: 'pull_request',
             })
             const workflows = await github.paginate(opts1)
+            console.log(workflows);
             for (const workflow of workflows) {
               if (workflow.status == 'completed') continue
               if (workflow.run_number == context.runNumber) continue
@@ -40,6 +42,7 @@ jobs:
                 repo: context.repo.repo,
                 run_id: workflow.id
               })
+              console.log(`cancel id: ${workflow.id}`);
             }
     - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
       run: exit 1
