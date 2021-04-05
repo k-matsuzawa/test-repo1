@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && '${{ secrets.CANCEL_WORKFLOW_TOKEN2 }}' != ''
+    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && ${{ secrets.CANCEL_WORKFLOW_TOKEN2 }} != ''
       name: wait 20 sec
       run: sleep 20
-    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && '${{ secrets.CANCEL_WORKFLOW_TOKEN2 }}' != ''
+    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && ${{ secrets.CANCEL_WORKFLOW_TOKEN2 }} != ''
       name: cancel workflows
       id: cancel_workflow
       uses: actions/github-script@v3
