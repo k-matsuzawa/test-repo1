@@ -28,7 +28,6 @@ jobs:
             const opts1 = github.actions.listWorkflowRunsForRepo.endpoint.merge({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              branch,
               event: 'pull_request',
             })
             const workflows = await github.paginate(opts1)
