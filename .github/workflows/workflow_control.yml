@@ -1,8 +1,9 @@
 name: workflow control
+# This workflow is c
 
 on: 
   pull_request_target:
-    types: [opened, synchronize, labeled, closed]
+    types: [opened, synchronize, labeled]
     paths:
       '.github/workflows/**'
 
@@ -12,11 +13,12 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
+    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && '${{ secrets.CANCEL_WORKFLOW_TOKEN2 }}' != ''
       name: wait 20 sec
       run: sleep 20
-    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
+    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && '${{ secrets.CANCEL_WORKFLOW_TOKEN2 }}' != ''
       name: cancel workflows
+      id: cancel_workflow
       uses: actions/github-script@v3
       with:
         github-token: ${{ secrets.CANCEL_WORKFLOW_TOKEN }}
@@ -50,7 +52,8 @@ jobs:
               console.log(`cancel: ${workflow.name} (${workflow.id}),`,
                 `path:${workflow.head_repository.full_name}/tree/${workflow.head_branch}`);
             }
-    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
-      run: exit 1
+            throw new Error('Change workflow file. please set label "update CI".')
+#    - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true
+#      run: exit 1
     - if: success()
       run: echo "enabled editing workflow."
