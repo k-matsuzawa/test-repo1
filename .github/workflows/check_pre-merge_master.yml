@@ -14,6 +14,17 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
+    - name: pwd
+      run: |
+        pwd
+        echo "ls"
+        ls
+    - uses: actions/checkout@v2
+    - name: pwd2
+      run: |
+        pwd
+        echo "ls"
+        ls
     - name: wait 60 sec
       run: sleep 60
     - name: test3
