@@ -15,7 +15,7 @@ jobs:
       contents: read
       pull-requests: write
     outputs:
-      test1: "${{ steps.filter.outputs.test1 }} || ${{ steps.tagged-trigger.outputs.test1 }}"
+      test1: ${{ steps.filter.outputs.test1 || steps.tagged-trigger.outputs.test1 }}
 
     steps:
       - uses: actions/checkout@v5
