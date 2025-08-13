@@ -38,6 +38,7 @@ jobs:
         run: |
           echo filter outputs = [${{ steps.filter.outputs.test1 }}]
           echo trigger outputs = [${{ steps.tagged-trigger.outputs.test1 }}]
+          echo tagged = ${{ startsWith(github.ref, 'refs/tags/v')  }}
 
   dump-tagged:
     name: dump
