@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: pwd
       run: |
-        echo "pwd"
+        echo "ls"
         pwd
         echo "ls"
         ls
