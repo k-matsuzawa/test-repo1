@@ -2,8 +2,10 @@ name: check tagged
 
 on: 
   push:
+    branches:
+      - test/*
     tags:
-    - 'v*'
+      - 'v*'
 
 jobs:
   call-tagged:
@@ -47,5 +49,3 @@ jobs:
     steps:
       - name: dump
         run: echo outputs = [${{ needs.call-tagged.outputs.test1 }}]
-
-
