@@ -27,7 +27,7 @@ jobs:
     - if: contains(github.event.pull_request.labels.*.name, 'update CI') != true && steps.check_secret.outputs.exist_secret == 'true'
       name: cancel workflows
       id: cancel_workflow
-      uses: actions/github-script@v3
+      uses: actions/github-script@v7
       with:
         github-token: ${{ secrets.CANCEL_WORKFLOW_TOKEN }}
         script: |
