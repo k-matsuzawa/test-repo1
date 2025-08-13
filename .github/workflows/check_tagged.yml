@@ -58,10 +58,13 @@ jobs:
     needs:
       - call-tagged
       - changed-job
-    if: always() && ${{ needs.changed-job.result == 'success' || needs.changed-job.result == 'skipped' }}
+    if: always()
+    # && (needs.changed-job.result == 'success' || needs.changed-job.result == 'skipped')
     permissions:
       contents: read
       pull-requests: write
     steps:
       - name: dump
-        run: echo outputs = [${{ needs.call-tagged.outputs.test1 }}]
+        run: |
+          echo outputs = ${{ needs.call-tagged.outputs.test1 }}
+          echo changed-job.result = ${{ needs.changed-job.result }}
