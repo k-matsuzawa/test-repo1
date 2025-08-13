@@ -3,7 +3,7 @@ name: check tagged
 on: 
   push:
     branches:
-      - test/*
+      - main
     tags:
       - 'v*'
 
