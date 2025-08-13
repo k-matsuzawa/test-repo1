@@ -11,7 +11,7 @@ on:
 jobs:
   call-test:
     name: call test
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: pwd
@@ -19,7 +19,7 @@ jobs:
         pwd
         echo "ls"
         ls
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
     - name: pwd2
       run: |
         pwd
