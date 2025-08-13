@@ -58,7 +58,7 @@ jobs:
     needs:
       - call-tagged
       - changed-job
-    if: always()
+    if: ${{ always() && !cancelled() && !contains(needs.*.result, 'failure')}}
     # && (needs.changed-job.result == 'success' || needs.changed-job.result == 'skipped')
     permissions:
       contents: read
