@@ -1,0 +1,23 @@
+version: "3"
+
+env:
+  PINACT_VERSION: v3.6.0
+  ACTIONLINT_VERSION: v1.7.9
+  GHALINT_VERSION: v1.5.4
+  YAMLFMT_VERSION: v0.20.0
+
+tasks:
+  lint:
+    deps:
+      - task: gha-lint
+  gha-lint:
+    cmds:
+      - go run github.com/suzuki-shunsuke/pinact/v3/cmd/pinact@{{.PINACT_VERSION}} run
+      - go run github.com/rhysd/actionlint/cmd/actionlint@{{.ACTIONLINT_VERSION}}
+      - go run github.com/suzuki-shunsuke/ghalint/cmd/ghalint@{{.GHALINT_VERSION}} run
+  gha-update:
+    cmds:
+      - go run github.com/suzuki-shunsuke/pinact/v3/cmd/pinact@{{.PINACT_VERSION}} run -u
+  format:
+    cmds:
+      - go run github.com/google/yamlfmt/cmd/yamlfmt@{{.YAMLFMT_VERSION}}

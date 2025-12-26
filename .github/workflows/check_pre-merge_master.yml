@@ -1,32 +1,38 @@
 name: master pre-merge check
 
-on: 
+on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
 
 jobs:
   call-test:
     name: call test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
-    - name: pwd
-      run: |
-        echo "pwd"
-        pwd
-        echo "ls"
-        ls
-    - uses: actions/checkout@v5
-    - name: pwd2
-      run: |
-        pwd
-        echo "ls"
-        ls
-    - name: wait 60 sec
-      run: sleep 60
-    - name: test3
-      run: echo "call test3"
+      - name: pwd
+        run: |
+          echo "pwd"
+          pwd
+          echo "ls"
+          ls
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+      - name: pwd2
+        run: |
+          pwd
+          echo "ls"
+          ls
+      - name: wait 60 sec
+        run: sleep 60
+      - name: test3
+        run: echo "call test3"
