@@ -1,3 +1,3 @@
 # test-repo1
 
-update1
+update-docs
