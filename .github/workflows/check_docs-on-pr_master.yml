@@ -4,9 +4,15 @@ on:
   pull_request:
     branches:
       - main
+    types:
+      - closed
+    paths:
+      - 'README.md'
+      - '.github/pull_request_template.md'
 
 jobs:
   call-tagged:
+    if: ${{ github.event.pull_request.merged == true }}
     name: tagged
     runs-on: ubuntu-slim
     timeout-minutes: 10
